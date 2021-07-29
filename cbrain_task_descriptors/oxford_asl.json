@@ -146,7 +146,7 @@
             "list": false,
             "optional": true,
             "id": "fixbolus",
-            "name": "Bolus duration"
+            "name": "Fix bolus duration"
         },
         {
             "command-line-flag": "--bolus",
@@ -229,8 +229,6 @@
             "name": "Number of repeated measurements"
         },
         {
-
-
             "description": "An existing fsl_anat directory from structural image",
             "value-key": "[FSLANAT]",
             "type": "File",
@@ -240,8 +238,7 @@
             "name": "fsl_anat directory"
         },
         {
-
-            "description": "Run Anat FSL with a single input image file, such as .nii.gz. The result will be used with Oxford ASL provide --fslanat option (as a structural image)",
+            "description": "Run Anat FSL with a single input image file, such as .nii.gz. The result will be used with Oxford ASL --fslanat option",
             "value-key": "[FSL_INFILE]",
             "type": "File",
             "list": false,
