@@ -177,7 +177,6 @@
     "cpu-cores": 1
   },
   "custom": {
-    "cbrain:readonly-input-files": true,
     "cbrain:author": "Serge Boroday <serge.boroday@mcin.ca>",
     "cbrain:integrator_modules": {
       "BoutiquesFileTypeVerifier": {
