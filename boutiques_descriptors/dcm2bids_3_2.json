@@ -184,7 +184,9 @@
           "DicomCollection",
           "TarArchive",
           "ZipArchive"
-        ]
+        ],
+        "config": ["JsonFile"]
+      },
       },
       "BoutiquesOutputFileTypeSetter": {
         "bids_subject": "BidsSubject"
