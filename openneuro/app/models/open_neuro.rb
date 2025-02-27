@@ -41,6 +41,10 @@ class OpenNeuro
   DATALAD_REPO_URL_PREFIX = 'https://github.com/OpenNeuroDatasets'
   GITHUB_VALIDATION_URL   = 'https://api.github.com/repos/OpenNeuroDatasets/:name/git/ref/tags/:version'
 
+  OPENNEURO_URL           = 'https://openneuro.org/dataset/%{name}/versions/%{version}'
+
+  OPENNEURO_STATUS_URL    = '%{site_url_prefix}/openneuro/%{name}/%{version}'
+
   # Creates an OpenNeuro object that represents
   # the dataset internally as a pair, a WorkGroup
   # and a DataladDataProvider. The naming of these
@@ -81,6 +85,7 @@ class OpenNeuro
   def autoconfigure!
     return true if self.configured?
     self.work_group.save!
+    self.work_group.meta['autolink_description'] = 'yes'  #  users can click on links in the original dataset
     self.data_provider.group_id = self.work_group.id
     self.data_provider.save!
     self.configured = true
@@ -277,7 +282,19 @@ class OpenNeuro
       :not_assignable => true,
       :invisible      => false,
       :track_usage    => true,
+      :description    => group_description_builder(name, version),
     )
+  end
+
+  # to build
+  def self.group_description_builder(name, version)
+    ("This project contains data of OpenNeuro dataset #{name} version #{version}, hosted at\n\n     " +
+        OPENNEURO_URL + "\n\nTo check the project current status go to \n\n     " +
+        OPENNEURO_STATUS_URL ) % {
+                                   site_url_prefix: RemoteResource.current_resource.site_url_prefix.presence,
+                                   name: name,
+                                   version: version
+                                  }
   end
 
   # Returns a DataladDataProvider fetcher or constructor
