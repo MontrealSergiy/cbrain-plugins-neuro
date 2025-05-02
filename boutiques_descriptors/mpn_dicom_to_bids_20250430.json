@@ -1,16 +1,17 @@
 {
   "name": "mpn_dicom_to_bids",
-  "tool-version": "20250429",
+  "tool-version": "beta20250429subj",
   "author": "Maxime Mulder",
   "description": "Converts a directory of DICOM files to BIDS format using subject and session labels.",
-  "command-line": "mpn_dicom_to_bids [INPUT_DICOM_DIR] [OUTPUT_BIDS_DIR] [EXISTING_BIDS_DIR] --subject [SUBJECT_LABEL] --session [SESSION_LABEL]",
+  "url": "https://github.com/BIC-MNI/MPN_DICOM_to_BIDS",
+  "command-line": "mpn_dicom_to_bids <INPUT_DICOM_DIR> <OUTPUT_BIDS_DIR> <EXISTING_BIDS_DIR> --subject <SUBJECT_LABEL> --session <SESSION_LABEL>",
   "inputs": [
     {
       "id": "input_dicom_dir",
-      "name": "Input DICOM Directory for one subject",
+      "name": "Input DICOM dataset for one subject",
       "type": "File",
       "description": "Input directory containing single subject DICOM files",
-      "value-key": "[INPUT_DICOM_DIR]",      
+      "value-key": "<INPUT_DICOM_DIR>",      
       "optional": false
     },
     {
@@ -18,15 +19,15 @@
       "name": "Create new output BIDS directory",
       "type": "String",
       "description": "The output directory for BIDS-formatted files",
-      "value-key": "[OUTPUT_BIDS_DIR]",
+      "value-key": "<OUTPUT_BIDS_DIR>",
       "optional": true
     },
     {
       "id": "existing_bids_dir",
-      "name": "Combine with an existing BIDS Directory",
+      "name": "Add to an existing BIDS dataset (old dataset remains unchanged) ",
       "type": "File",
       "description": "The output directory for BIDS-formatted files",
-      "value-key": "[EXISTING_BIDS_DIR]",
+      "value-key": "<EXISTING_BIDS_DIR>",
       "optional": true
     },
     {
@@ -34,8 +35,7 @@
       "name": "Subject Label",
       "type": "String",
       "description": "Subject identifier (e.g., '01')",
-      "command-line-flag": "--subject",
-      "value-key": "[SUBJECT_LABEL]",
+      "value-key": "<SUBJECT_LABEL>",
       "optional": false
     },
     {
@@ -43,8 +43,7 @@
       "name": "Session Label",
       "type": "String",
       "description": "Session identifier (e.g., '01')",
-      "command-line-flag": "--session",
-      "value-key": "[SESSION_LABEL]",
+      "value-key": "<SESSION_LABEL>",
       "optional": false
     }
   ],
@@ -52,7 +51,7 @@
     {
       "id": "bids_output",
       "name": "BIDS Output Directory",
-      "path-template": "[OUTPUT_BIDS_DIR][EXISTING_BIDS_DIR]"
+      "path-template": "<OUTPUT_BIDS_DIR><EXISTING_BIDS_DIR>"
     }
   ],
   "groups": [
@@ -85,7 +84,7 @@
     "cbrain:integrator_modules": {
       "BoutiquesFileTypeVerifier": {
         "input_dicom_dir": [ "DicomCollection" ],
-        "existing_bids_dir": ["BidsDataset"]
+        "existing_bids_dir": [ "BidsDataset" ]
       },
       "BoutiquesOutputFileTypeSetter": {
         "bids_output": "BidsDataset"
