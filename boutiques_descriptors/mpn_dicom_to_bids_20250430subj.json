@@ -1,0 +1,72 @@
+{
+  "name": "mpn_dicom_to_bids",
+  "tool-version": "beta20250429_to_subject",
+  "author": "Maxime Mulder",
+  "description": "Converts a directory of DICOM files to BIDS format using subject and session labels.",
+  "url": "https://github.com/BIC-MNI/MPN_DICOM_to_BIDS",
+  "command-line": "mpn_dicom_to_bids <INPUT_DICOM_DIR> bids --subject <SUBJECT_LABEL> --session <SESSION_LABEL>",
+  "inputs": [
+    {
+      "id": "input_dicom_dir",
+      "name": "Input DICOM dataset for one subject",
+      "type": "File",
+      "description": "Input directory containing single subject DICOM files",
+      "value-key": "<INPUT_DICOM_DIR>",      
+      "optional": false
+    },
+    {
+      "id": "subject_label",
+      "name": "Subject Label",
+      "type": "String",
+      "description": "Subject identifier (e.g., '01')",
+      "value-key": "<SUBJECT_LABEL>",
+      "optional": false
+    },
+    {
+      "id": "session_label",
+      "name": "Session Label",
+      "type": "String",
+      "description": "Session identifier (e.g., '01')",
+      "value-key": "<SESSION_LABEL>",
+      "optional": false
+    }
+  ],
+  "output-files": [
+    {
+      "id": "bids_output",
+      "name": "BIDS Subject Output Directory",
+      "path-template": "bids/sub-<SUBJECT_LABEL>"
+    }
+  ],
+  "tags": {
+    "domain": [
+      "dcm",
+      "bids",
+      "neuroimaging",
+      "File Format Conversion"
+    ]
+  },
+  "suggested-resources": {
+    "cpu-cores":         1,
+    "ram":               2,
+    "walltime-estimate": 1200
+  },
+  "custom": {
+    "cbrain:author": "Sergiy Boroday <sergiy.boroday@mcgill.ca>",
+    "cbrain:integrator_modules": {
+      "BoutiquesFileTypeVerifier": {
+        "input_dicom_dir": [ "DicomCollection" ]
+      },
+      "BoutiquesOutputFileTypeSetter": {
+        "bids_output": "BidsSubject"
+      },
+      "BoutiquesFileNameVerifier": [
+        "output_bids_dir"
+      ]
+    }
+  },
+  "schema-version": "0.5"
+}
+
+
+
