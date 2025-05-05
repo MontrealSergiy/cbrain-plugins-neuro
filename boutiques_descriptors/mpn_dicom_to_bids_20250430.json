@@ -1,6 +1,6 @@
 {
   "name": "mpn_dicom_to_bids",
-  "tool-version": "beta20250429subj",
+  "tool-version": "beta20250505",
   "author": "Maxime Mulder",
   "description": "Converts a directory of DICOM files to BIDS format using subject and session labels.",
   "url": "https://github.com/BIC-MNI/MPN_DICOM_to_BIDS",
@@ -18,13 +18,13 @@
       "id": "output_bids_dir",
       "name": "Create new output BIDS directory",
       "type": "String",
-      "description": "The output directory for BIDS-formatted files",
+      "description": "Creates a BIDS dataset stub, and a BIDS subject within files",
       "value-key": "<OUTPUT_BIDS_DIR>",
       "optional": true
     },
     {
       "id": "existing_bids_dir",
-      "name": "Add to an existing BIDS dataset (old dataset remains unchanged) ",
+      "name": "Add a subject directory to the following BIDS directory",
       "type": "File",
       "description": "The output directory for BIDS-formatted files",
       "value-key": "<EXISTING_BIDS_DIR>",
@@ -50,14 +50,14 @@
   "output-files": [
     {
       "id": "bids_output",
-      "name": "BIDS Output Directory",
+      "name": "Resulting BIDS dataset",
       "path-template": "<OUTPUT_BIDS_DIR><EXISTING_BIDS_DIR>"
     }
   ],
   "groups": [
     {
       "id": "bids",
-      "name": "Write new subject to a BIDS dataset, or create one",
+      "name": "Create a subject directory within an existing BIDS dataset, or create one",
       "members": [
         "existing_bids_dir",
         "output_bids_dir"
@@ -91,7 +91,11 @@
       },
       "BoutiquesFileNameVerifier": [
         "output_bids_dir"
-      ]
+      ],
+      "BoutiquesInputRegexChecker": {
+        "subject_label": [ "[a-zA-Z0-9]+", "must be a sequence of numbers and digits" ],
+        "session_label": [ "[a-zA-Z0-9]+", "must be a sequence of numbers and digits" ]
+      }
     }
   },
   "schema-version": "0.5"
