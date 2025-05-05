@@ -1,17 +1,17 @@
 {
   "name": "mpn_dicom_to_bids",
-  "tool-version": "beta20250505",
+  "tool-version": "beta202505",
   "author": "Maxime Mulder",
   "description": "Converts a directory of DICOM files to BIDS format using subject and session labels.",
   "url": "https://github.com/BIC-MNI/MPN_DICOM_to_BIDS",
-  "command-line": "mpn_dicom_to_bids <INPUT_DICOM_DIR> <OUTPUT_BIDS_DIR> <EXISTING_BIDS_DIR> --subject <SUBJECT_LABEL> --session <SESSION_LABEL>",
+  "command-line": "mpn_dicom_to_bids <INPUT_DICOM_DIR> <OUTPUT_BIDS_DIR>  --subject <SUBJECT_LABEL> --session <SESSION_LABEL>",
   "inputs": [
     {
       "id": "input_dicom_dir",
       "name": "Input DICOM dataset for one subject",
       "type": "File",
       "description": "Input directory containing single subject DICOM files",
-      "value-key": "<INPUT_DICOM_DIR>",      
+      "value-key": "<INPUT_DICOM_DIR>",
       "optional": false
     },
     {
@@ -27,7 +27,7 @@
       "name": "Add a subject directory to the following BIDS directory",
       "type": "File",
       "description": "The output directory for BIDS-formatted files",
-      "value-key": "<EXISTING_BIDS_DIR>",
+      "value-key": "<OUTPUT_BIDS_DIR>",
       "optional": true
     },
     {
@@ -51,7 +51,7 @@
     {
       "id": "bids_output",
       "name": "Resulting BIDS dataset",
-      "path-template": "<OUTPUT_BIDS_DIR><EXISTING_BIDS_DIR>"
+      "path-template": "<OUTPUT_BIDS_DIR>"
     }
   ],
   "groups": [
@@ -100,6 +100,3 @@
   },
   "schema-version": "0.5"
 }
-
-
-
