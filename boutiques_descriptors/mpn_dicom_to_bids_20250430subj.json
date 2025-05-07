@@ -1,6 +1,6 @@
 {
   "name": "mpn_dicom_to_bids",
-  "tool-version": "beta20250525sub",
+  "tool-version": "beta202505sub",
   "author": "Maxime Mulder",
   "description": "Converts a directory of DICOM files to BIDS format using subject and session labels.",
   "url": "https://github.com/BIC-MNI/MPN_DICOM_to_BIDS",
@@ -10,7 +10,7 @@
       "id": "input_dicom_dir",
       "name": "Input DICOM dataset for one subject",
       "type": "File",
-      "description": "Input directory containing DICOM files for a single subject.",
+      "description": "Input DICOM dataset for a single subject.",
       "value-key": "<INPUT_DICOM_DIR>",      
       "optional": false
     },

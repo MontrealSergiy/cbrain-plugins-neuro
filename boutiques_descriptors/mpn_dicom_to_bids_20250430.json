@@ -4,7 +4,7 @@
   "author": "Maxime Mulder",
   "description": "Converts a directory of DICOM files to BIDS format using subject and session labels.",
   "url": "https://github.com/BIC-MNI/MPN_DICOM_to_BIDS",
-  "command-line": "mpn_dicom_to_bids <INPUT_DICOM_DIR> <OUTPUT_BIDS_DIR>  --subject <SUBJECT_LABEL> --session <SESSION_LABEL>",
+  "command-line": "mpn_dicom_to_bids <INPUT_DICOM_DIR> <EXISTING_BIDS_DIR> <OUTPUT_BIDS_DIR>  --subject <SUBJECT_LABEL> --session <SESSION_LABEL> [--overwrite]",
   "inputs": [
     {
       "id": "input_dicom_dir",
@@ -18,7 +18,7 @@
       "id": "output_bids_dir",
       "name": "Create new output BIDS directory",
       "type": "String",
-      "description": "Creates a BIDS dataset stub, and a BIDS subject within files",
+      "description": "Creates a BIDS dataset stub, with a BIDS subject within.",
       "value-key": "<OUTPUT_BIDS_DIR>",
       "optional": true
     },
@@ -27,7 +27,7 @@
       "name": "Add a subject directory to the following BIDS directory",
       "type": "File",
       "description": "The output directory for BIDS-formatted files",
-      "value-key": "<OUTPUT_BIDS_DIR>",
+      "value-key": "<EXISTING_BIDS_DIR>",
       "optional": true
     },
     {
@@ -45,25 +45,41 @@
       "description": "Session identifier (e.g., '01')",
       "value-key": "<SESSION_LABEL>",
       "optional": false
+    },
+    {
+      "id": "overwrite",
+      "name": "Overwrite data",
+      "type": "Flag",
+      "command-line-flag": "--overwrite",
+      "description": "If you adding to existing dataset rather than stub you likely have to enable overwriting existing files, including README etc",
+      "value-key": "[--overwrite]",
+      "optional": false
     }
   ],
   "output-files": [
     {
-      "id": "bids_output",
+      "id": "bids_result",
       "name": "Resulting BIDS dataset",
-      "path-template": "<OUTPUT_BIDS_DIR>"
+      "path-template": "<OUTPUT_BIDS_DIR>",
+      "optional": true
+    },
+    {
+      "id": "new_bids",
+      "name": "Resulting BIDS dataset",
+      "path-template": "<EXISTING_BIDS_DIR>",
+      "optional": true
     }
   ],
   "groups": [
     {
       "id": "bids",
-      "name": "Create a subject directory within an existing BIDS dataset, or create one",
+      "name": "Create new BIDS dataset, or combine the new output with an existing BIDS dataset",
       "members": [
         "existing_bids_dir",
         "output_bids_dir"
       ],
-      "mutually-exclusive": true,
-      "one-is-required": true
+      "one-is-required": true,
+      "mutually-exclusive": true
     }
   ],
   "tags": {
@@ -75,16 +91,27 @@
     ]
   },
   "suggested-resources": {
-    "cpu-cores":         1,
-    "ram":               2,
+    "cpu-cores": 1,
+    "ram": 2,
     "walltime-estimate": 1200
   },
   "custom": {
     "cbrain:author": "Sergiy Boroday <sergiy.boroday@mcgill.ca>",
     "cbrain:integrator_modules": {
+      "BoutiquesInputCopier": {
+        "existing_bids_dir": {
+          "checkbox_selected": true,
+          "checkbox_hidden": true,
+          "checkbox_description": "Create a copy of the BIDS dataset to prevent potential modification of the original dataset or cache. This can prevent races when several tasks attempt to modify it. "
+        }
+      },
       "BoutiquesFileTypeVerifier": {
-        "input_dicom_dir": [ "DicomCollection" ],
-        "existing_bids_dir": [ "BidsDataset" ]
+        "input_dicom_dir": [
+          "DicomCollection"
+        ],
+        "existing_bids_dir": [
+          "BidsDataset"
+        ]
       },
       "BoutiquesOutputFileTypeSetter": {
         "bids_output": "BidsDataset"
@@ -93,8 +120,14 @@
         "output_bids_dir"
       ],
       "BoutiquesInputRegexChecker": {
-        "subject_label": [ "[a-zA-Z0-9]+", "must be a sequence of numbers and digits" ],
-        "session_label": [ "[a-zA-Z0-9]+", "must be a sequence of numbers and digits" ]
+        "subject_label": [
+          "[a-zA-Z0-9]+",
+          "must be a sequence of numbers and digits"
+        ],
+        "session_label": [
+          "[a-zA-Z0-9]+",
+          "must be a sequence of numbers and digits"
+        ]
       }
     }
   },
