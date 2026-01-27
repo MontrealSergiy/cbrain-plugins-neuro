@@ -3,10 +3,10 @@
     "description": "q-Space Image PREProcessing workflows",
     "author": "University of Pennsylvania Lifespan Informatics and Neuroimaging Center (https://github.com/PennLINC)",
     "url": "https://qsiprep.readthedocs.io/en/latest/index.html",
-    "tool-version": "1.0.0",
+    "tool-version": "1.0.0-core",
     "shell": "/bin/bash",
     "schema-version": "0.5",
-    "command-line": "qsiprep [BIDS_DATASET] [QSIPREP_OUTPUT_DIR] participant [SUBJECT_ID][SKIP_BIDS_VALIDATION] --work-dir \"$PWD\"/work [SESSION_ID] [FS_LICENSE_FILE] [BIDS_FILTER_FILE] --omp-nthreads 8 --n-cpus 8 --stop-on-first-crash --eddy-config \"$PWD\"/[EDDY_CONFIG] [SUBJECT_ANAT_REFERENCE] [SKIP_ANAT_BASED_SPATIAL_NORM] [ANAT_MODALITY] [SEPARATE_ALL_DWIS] [PEPOLAR_METHOD] [USE_PLUGIN] [ANAT_ONLY] [DWI_ONLY] [B1_BIAS_CORRECT] [INFANT] [BOILERPLATE] [VERBOSE] [IGNORE] [LONGITUDINAL] [B0_THRESHOLD] [DWI_DENOISE_WINDOW] [UNRINGING_METHOD] [NO_B0_HARMONIZATION] [DENOISE_AFTER_COMBINING] [DENOISE_METHOD] [DISTORTION_GROUP_MERGE] [TEMPLATE] [OUTPUT_RESOLUTION] [B0_TO_T1W_TRANSFORM] [INTRAMODAL_TEMPLATE_ITERS] [INTRAMODAL_TEMPLATE_TRANSFORM] [B0_MOTION_CORR_TO] [HMC_TRANSFORM] [HMC_MODEL] [SHORELINE_ITERS] [FMAP_BSPLINE] [FMAP_NO_DEMEAN] [USE_SYN_SDC] [FORCE_SYN] [REPORTS_ONLY] [WRITE_GRAPH] [SLOPPY]",
+    "command-line": "qsiprep [BIDS_DATASET] [QSIPREP_OUTPUT_DIR] participant [SUBJECT_ID] [SKIP_BIDS_VALIDATION] --work-dir \"$PWD\"/work [SESSION_ID] [FS_LICENSE_FILE] [BIDS_FILTER_FILE] --omp-nthreads 8 --n-cpus 8 --stop-on-first-crash --eddy-config \"$PWD\"/[EDDY_CONFIG] [SUBJECT_ANAT_REFERENCE] [SKIP_ANAT_BASED_SPATIAL_NORM] [ANAT_MODALITY] [SEPARATE_ALL_DWIS] [PEPOLAR_METHOD] [USE_PLUGIN] [ANAT_ONLY] [DWI_ONLY] [B1_BIAS_CORRECT] [INFANT] [BOILERPLATE] [VERBOSE] [IGNORE] [LONGITUDINAL] [B0_THRESHOLD] [DWI_DENOISE_WINDOW] [UNRINGING_METHOD] [NO_B0_HARMONIZATION] [DENOISE_AFTER_COMBINING] [DENOISE_METHOD] [DISTORTION_GROUP_MERGE] [TEMPLATE] [OUTPUT_RESOLUTION] [B0_TO_T1W_TRANSFORM] [INTRAMODAL_TEMPLATE_ITERS] [INTRAMODAL_TEMPLATE_TRANSFORM] [B0_MOTION_CORR_TO] [HMC_TRANSFORM] [HMC_MODEL] [SHORELINE_ITERS] [FMAP_BSPLINE] [FMAP_NO_DEMEAN] [USE_SYN_SDC] [FORCE_SYN] [REPORTS_ONLY] [WRITE_GRAPH] [SLOPPY]",
     "container-image":
     {
         "image": "pennlinc/qsiprep:1.0.0",
@@ -486,15 +486,6 @@
             "optional": true,
             "type": "Flag",
             "value-key": "[SLOPPY]"
-        },
-        {
-            "default-value": "derivatives/",
-            "id": "derivatives_prefix",
-            "name": "derivatives_prefix",
-            "description": "Folders to put before the pipeline specific folder. By default this will look like DataProvider/derivatives/PipelineName, where pipeline name is specific to the current pipeline. The provided string must end in /",
-            "optional": true,
-            "type": "String",
-            "value-key": "[DERIVATIVES_PREFIX]"
         }
     ],
     "output-files" : [{
