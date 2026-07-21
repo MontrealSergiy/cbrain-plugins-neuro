@@ -60,7 +60,9 @@ module BoutiquesFreesurferLicenseFinder
       .order("updated_at desc")
       .first
 
-    # by default CBRAIN assign license.txt file Text File type, lets tell user reassign type properly
+    # By default, CBRAIN assigns license.txt as Text File.
+    # Therefore, we prompt users to set the correct type for FreeSurfer licenses.
+
     if lic.blank?
       txt_lic = TextFile
         .where(
@@ -77,7 +79,8 @@ module BoutiquesFreesurferLicenseFinder
             "and try again. (Or provide another valid license file with its type properly set.)"
         )   # the phrase in brackets addresses a hypothetical case of a tool with two licenses
       end
-      # a user may accidentally supply license of another user, we do not prohibit users from sharing any files, or check license content
+      # a user may accidentally supply license of another user, we neither prohibit users from sharing any files
+      # nor check license content
     end
 
     # Find a license among all files owned by the user
