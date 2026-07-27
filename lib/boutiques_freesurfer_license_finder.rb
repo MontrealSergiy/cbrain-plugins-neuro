@@ -60,28 +60,16 @@ module BoutiquesFreesurferLicenseFinder
       .order("updated_at desc")
       .first
 
-    # By default, CBRAIN assigns license.txt as Text File.
-    # Therefore, we prompt users to set the correct type for FreeSurfer licenses.
-
-    if lic.blank?
-      txt_lic = TextFile
+    # a user may accidentally supply his own or another user's Text file license
+    # We neither prohibit users from sharing any files
+    # nor check license content for licensee email, and this is
+    # a convenience rather than validation module
+    return super if lic.blank? && Userfile
         .where(
           id:      params[:interface_userfile_ids],
-          name:    "license.txt"
-        )
-        .order(updated_at: :desc)
-        .first
-
-      if txt_lic.present?
-        cb_error(
-          "Suspicious license.txt file is registered/uploaded as Text File. " \
-            "If it is a FreeSurfer license, please change its type accordingly " \
-            "and try again. (Or provide another valid license file with its type properly set.)"
-        )   # the phrase in brackets addresses a hypothetical case of a tool with two licenses
-      end
-      # a user may accidentally supply license of another user, we neither prohibit users from sharing any files
-      # nor check license content
-    end
+          type:    "TextFile")  # other classes, such as Single File are extremely rare for FS license
+        .where("name LIKE ?", "%license%")
+        .exists?
 
     # Find a license among all files owned by the user
     lic ||= FreesurferLicense
