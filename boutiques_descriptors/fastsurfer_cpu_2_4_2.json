@@ -157,7 +157,7 @@
         {
             "id": "output_dir",
             "name": "Output Directory",
-            "description": "The results",
+            "description": "The output directory containing all FastSurfer results",
             "path-template": "[SUBJECT_ID]",
             "optional": false,
             "value-key": "[RESULTS]"
